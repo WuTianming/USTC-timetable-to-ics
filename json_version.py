@@ -42,6 +42,9 @@ for c in x['studentTableVm']['activities']:
                 startWeek = int(it)
                 endWeek = int(it)
             weekday = int(c['weekday'])
+            if (weekday == 7):
+                startWeek -= 1
+                endWeek -= 1
             sHour=int(c['startDate'].split(':')[0])
             sMin = int(c['startDate'].split(':')[1])
             eHour=int(c['endDate'].split(':')[0])
@@ -60,6 +63,9 @@ for c in x['studentTableVm']['activities']:
         startWeek = int(weeksStr.split('-')[0])
         endWeek = int(weeksStr.split('-')[1])
         weekday = int(c['weekday'])
+        if (weekday == 7):
+            startWeek -= 1
+            endWeek -= 1
         sHour=int(c['startDate'].split(':')[0])
         sMin = int(c['startDate'].split(':')[1])
         eHour=int(c['endDate'].split(':')[0])
@@ -74,6 +80,6 @@ for c in x['studentTableVm']['activities']:
         interval = 2 if status else 1
         event.add('rrule', {'freq': 'weekly', 'interval': interval, 'count': (endWeek - startWeek) // interval + 1})
         cal.add_component(event)
-f = open('example.ics', 'wb')
+f = open('output.ics', 'wb')
 f.write(cal.to_ical())
 f.close()
